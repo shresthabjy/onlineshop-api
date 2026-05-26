@@ -1,0 +1,97 @@
+﻿@model OnlineShopping.ViewModel.CategoryViewModelLst
+
+@{ ViewBag.Title = "Category";
+                Layout = "~/Views/Shared/_LayoutAdmin.cshtml"; }
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Product
+        <a class="m-0 font-weight-bold text-primary float-right" asp-action="Create">Add New </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Category Name</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>Sr. No.</th>
+                        <th>Product</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+                <tbody>
+                    @foreach (var item in Model.dbModelLst)
+                    {
+                        int count = 1;
+        <tr>
+            <td>@count</td>
+            <td>@item.CategoryName</td>
+            <td>
+                <div class="list-group">
+                    <a class="list-group-item" href="#"><i class="fa fa-home fa-fw" aria-hidden="true"></i>&nbsp; Home</a>
+                    <a class="list-group-item" href="#"><i class="fa fa-book fa-fw" aria-hidden="true"></i>&nbsp; Library</a>
+                    <a class="list-group-item" href="#"><i class="fa fa-pencil fa-fw" aria-hidden="true"></i>&nbsp; Applications</a>
+                    <a class="list-group-item" href="#"><i class="fa fa-cog fa-fw" aria-hidden="true"></i>&nbsp; Settings</a>
+                </div>
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <a asp-action="Edit" asp-route-id="@item.CategoryId"> <i class="fa fa-pencil" title="Edit"></i> </a> /
+                <a asp-action="Edit" asp-route-id="@item.CategoryId">Delete</a>
+            </td>
+        </tr>count++;
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
+<link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
+      media="screen" />
+<script type="text/javascript">
+    function ShowPopup(title, body) {
+        $("#MyPopup .modal-title").html(title);
+        $("#MyPopup .modal-body").html(body);
+        $("#MyPopup").modal("show");
+    }
+</script>
+<center>
+    <asp:Button ID="btnShowPopup" runat="server" Text="Show Popup" OnClick="Show" CssClass="btn btn-info btn-lg" />
+    <asp:Button ID="Button1" runat="server" Text="Display Popup" OnClick="Display" CssClass="btn btn-info btn-lg" />
+</center>
+<!-- Bootstrap -->
+<!-- Bootstrap -->
+<!-- Modal Popup -->
+<div id="MyPopup" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    &times;
+                </button>
+                <h4 class="modal-title">
+                </h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

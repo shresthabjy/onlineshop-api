@@ -1,0 +1,21 @@
+﻿@model OnlineShopping.ViewModel.CategoryViewModel
+@Html.AntiForgeryToken()
+@Html.HiddenFor(model => model.dbModel.CategoryId)
+@Html.HiddenFor(model => model.dbModel.IsDelete)
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+<div class="form-row">
+    @Html.LabelFor(model => model.dbModel.CategoryName, new { @class = "control-label col-md-2" })
+    <div class="form-group col-md-4">
+        @Html.TextBoxFor(model => model.dbModel.CategoryName, new { @class = "form-control nep" })
+        @Html.ValidationMessageFor(model => model.dbModel.CategoryName)
+    </div>
+    @Html.LabelFor(model => model.dbModel.IsActive, new { @class = "control-label col-md-2" })
+    <div class="form-group col-md-4">
+        @Html.DropDownListFor(model => model.dbModel.IsActive, new SelectList(Model.ddlIsActive, "Key", "Value"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.dbModel.IsActive)
+    </div>
+</div>
+
+
+

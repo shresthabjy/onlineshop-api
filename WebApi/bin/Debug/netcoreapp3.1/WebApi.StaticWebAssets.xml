@@ -1,0 +1,4 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\bijay\Desktop\OnlineShop-master\OnlineShoppingStore\wwwroot\" />
+  <ContentRoot BasePath="/Identity" Path="C:\Users\bijay\.nuget\packages\microsoft.aspnetcore.identity.ui\3.1.1\staticwebassets\V4\" />
+</StaticWebAssets>

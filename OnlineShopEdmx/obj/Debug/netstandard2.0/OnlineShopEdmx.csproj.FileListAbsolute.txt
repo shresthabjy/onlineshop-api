@@ -1,0 +1,11 @@
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\bin\Debug\netstandard2.0\OnlineShopEdmx.deps.json
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\bin\Debug\netstandard2.0\OnlineShopEdmx.dll
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\bin\Debug\netstandard2.0\OnlineShopEdmx.pdb
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.csproj.AssemblyReference.cache
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.AssemblyInfoInputs.cache
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.AssemblyInfo.cs
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.csproj.CoreCompileInputs.cache
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.sourcelink.json
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.dll
+C:\Users\bijay\Desktop\OnlineShop-master\OnlineShopEdmx\obj\Debug\netstandard2.0\OnlineShopEdmx.pdb

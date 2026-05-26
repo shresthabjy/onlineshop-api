@@ -1,0 +1,87 @@
+﻿@model OnlineShopping.ViewModel.ProductViewModel
+@Html.AntiForgeryToken()
+@Html.HiddenFor(model => model.dbModel.ProductId)
+@Html.HiddenFor(model => model.dbModel.IsDelete)
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+
+
+<div class="form-horizontal">
+    <h4>Product</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.ProductName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.dbModel.ProductName, new { @class = "form-control nep" })
+            @Html.ValidationMessageFor(model => model.dbModel.ProductName)
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.CategoryId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.dbModel.CategoryId, new SelectList(Model.ddlCategory, "Key", "Value"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.dbModel.CategoryId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.dbModel.IsActive, new SelectList(Model.ddlIsActive, "Key", "Value"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.dbModel.IsActive, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.HiddenFor(model => model.dbModel.IsDelete)
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.image, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.ProductFeatureId, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.dbModel.ProductFeatureId, new SelectList(Model.ddlProductFeature, "Key", "Value"), new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.dbModel.ProductFeatureId)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.dbModel.Quantity, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.dbModel.Quantity, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.dbModel.Price, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.dbModel.Price, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.dbModel.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.dbModel.Description, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.dbModel.Description, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+
+
+

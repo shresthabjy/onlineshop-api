@@ -1,0 +1,30 @@
+﻿@model OnlineShopping.ViewModel.CustomerProductSeeViewModelLst
+@foreach (var item in Model.dbModelLst)
+{
+    var image = "/productImages/" + item.ProductImage;
+<div class="container">
+    <div class="row">
+        <h1>@item.ProductName</h1>
+    </div>
+    <div class="row">
+        <div class="col">
+                <img class="img-responsive" src="@image" />
+        </div>
+        <div class="col">
+            <h3>Product Name: @item.ProductName</h3>
+            <h3>Price: @item.Price ৳.</h3>
+            <h3>Quantity: @item.Quantity</h3>
+            <h3>Product Feature: @item.ProductFeatureId</h3>
+            <h3>Category: @item.CategoryId</h3>
+            <h3>DescriptionL @item.Description</h3>
+        </div>
+    </div>
+
+
+    <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom:8px">
+
+    </div>
+</div>
+
+}
+    
