@@ -1,4 +1,5 @@
 ﻿using Amazon.AWSSupport.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,9 +11,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
 
 namespace WebApi.Controllers
 {
+
+    [Authorize]
+
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]

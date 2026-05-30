@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,8 @@ using System.Threading.Tasks;
 
 namespace WebApi.Controllers
 {
+    [Authorize]
+
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
@@ -79,9 +82,8 @@ namespace WebApi.Controllers
 
         [HttpPost]
         public ActionResult<ProductDetail> Create( [FromForm] ProductViewModel model)
-        {
+            {
             ProductDetail item = new ProductDetail();
-
             item.ProductName = model.ProductName;
             item.CategoryId = model.CategoryId;
             item.Quantity = model.Quantity;
@@ -95,7 +97,7 @@ namespace WebApi.Controllers
             // image handling later
             string uniqueFileName = null;
 
-            if (model.image != null)
+            if (model.productImage != null)
             {
 
                 string uploadsFolder =
@@ -110,7 +112,7 @@ namespace WebApi.Controllers
                 uniqueFileName =
                     Guid.NewGuid().ToString()
                     + "_"
-                    + model.image.FileName;
+                    + model.productImage.FileName;
 
                 string filePath =
                     Path.Combine(
@@ -122,7 +124,7 @@ namespace WebApi.Controllers
                     filePath,
                     FileMode.Create))
                 {
-                    model.image.CopyTo(stream);
+                    model.productImage.CopyTo(stream);
                 }
             }
             item.ProductImage = uniqueFileName;
@@ -136,16 +138,64 @@ namespace WebApi.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTodoItem(int id, ProductDetail todoItem)
+        public async Task<IActionResult> PutTodoItem(int id, [FromForm] ProductViewModel model)
         {
             eCommerceEntities _context = new eCommerceEntities();
 
-            if (id != todoItem.ProductId)
+            var product = await _context.Product.FindAsync(id);
+
+            if (product == null)
             {
-                return BadRequest();
+                return NotFound();
             }
 
-            _context.Entry(todoItem).State = EntityState.Modified;
+            product.ProductName = model.ProductName;
+            product.CategoryId = model.CategoryId;
+            product.Quantity = model.Quantity;
+            product.Price = model.Price;
+            product.Description = model.Description;
+            product.IsActive = model.IsActive;
+            product.ProductFeatureId = model.ProductFeatureId;
+            product.CreatedDate = product.ModifiedDate = DateTime.Now;
+            product.IsDelete = false;
+
+            // image handling later
+            string uniqueFileName = null;
+
+            if (model.productImage != null)
+            {
+
+                string uploadsFolder =
+                    Path.Combine(
+                        hostingEnvo.WebRootPath,
+                        "productImages"
+                    );
+                if (!Directory.Exists(uploadsFolder))
+                {
+                    Directory.CreateDirectory(uploadsFolder);
+                }
+                uniqueFileName =
+                    Guid.NewGuid().ToString()
+                    + "_"
+                    + model.productImage.FileName;
+
+                string filePath =
+                    Path.Combine(
+                        uploadsFolder,
+                        uniqueFileName
+                    );
+
+                using (var stream = new FileStream(
+                    filePath,
+                    FileMode.Create))
+                {
+                    model.productImage.CopyTo(stream);
+                }
+            }
+            product.ProductImage = uniqueFileName;
+
+
+            _context.Entry(product).State = EntityState.Modified;
 
             try
             {

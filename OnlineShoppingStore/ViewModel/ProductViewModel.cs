@@ -16,8 +16,10 @@ namespace OnlineShopping.ViewModel
         public IEnumerable<PairModel> ddlIsActive { get; set; }
         public IEnumerable<IntStringPairModel> ddlCategory { get; set; }
         public IEnumerable<IntStringPairModel> ddlProductFeature { get; set; }
-        public IFormFile image { get; set; }
+        
+        public IFormFile productImage { get; set; }
         public string ProductName { get; set; }
+        public int ProductId { get; set; }
         public int CategoryId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }

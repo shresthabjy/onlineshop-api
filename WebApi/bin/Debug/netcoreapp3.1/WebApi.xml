@@ -26,27 +26,5 @@
              <response code="201">Returns the newly created item</response>
              <response code="400">If the item is null</response>            
         </member>
-        <member name="M:WebApi.Controllers.UserApiController.Create(OnlineShopEdmx.Model.UserDetail)">
-             <summary>
-             Creates a TodoItem.
-             </summary>
-             <remarks>
-             Sample request:
-            
-                 POST /Todo
-                 {
-                    "id": 1,
-                    "name": "Item1",
-                    "isComplete": true
-                 }
-            
-             </remarks>
-             <param name="item"></param>
-             <returns>A newly created TodoItem</returns>
-             <response code="201">Returns the newly created item</response>
-             <response code="400">If the item is null</response>            
-             <response code="201">Returns the newly created item</response>
-             <response code="400">If the item is null</response>            
-        </member>
     </members>
 </doc>

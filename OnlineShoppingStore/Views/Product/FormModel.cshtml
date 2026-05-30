@@ -42,10 +42,10 @@
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.image, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.productImage, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.image, new { type = "file" })
-            @Html.ValidationMessageFor(model => model.image, "", new { @class = "text-danger" })
+            @Html.TextBoxFor(model => model.productImage, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.productImage, "", new { @class = "text-danger" })
         </div>
     </div>
 

@@ -5,14 +5,21 @@ using BCrypt.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using OnlineShopEdmx;
 using OnlineShopEdmx.Model;
 using OnlineShopping.Repository;
 using OnlineShopping.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
+
 
 namespace WebApi.Controllers
 {
@@ -23,7 +30,15 @@ namespace WebApi.Controllers
     {
         public GenericUnitOfWork _unitOfWork = new GenericUnitOfWork();
         private Populator populator = new Populator();
-       
+
+        private readonly IConfiguration Configuration;
+
+        public UserApiController(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserDetail>>> Get()
         {
@@ -37,27 +52,7 @@ namespace WebApi.Controllers
             return result.dbModelLst.ToList();
 
         }
-
-        /// <summary>
-        /// Creates a TodoItem.
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        ///
-        ///     POST /Todo
-        ///     {
-        ///        "id": 1,
-        ///        "name": "Item1",
-        ///        "isComplete": true
-        ///     }
-        ///
-        /// </remarks>
-        /// <param name="item"></param>
-        /// <returns>A newly created TodoItem</returns>
-        /// <response code="201">Returns the newly created item</response>
-        /// <response code="400">If the item is null</response>            
-        /// <response code="201">Returns the newly created item</response>
-        /// <response code="400">If the item is null</response>            
+                  
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,9 +81,7 @@ namespace WebApi.Controllers
         }
 
 
-        // PUT: api/TodoItems/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-       
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTodoItem(int id, UserDetail todoItem)
         {
@@ -143,10 +136,10 @@ namespace WebApi.Controllers
             //return NoContent();
             return Ok(todo);
         }
-
+        [Authorize]
         // GET: api/ProductItem/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDetail>> GetProduct(int id)
+        public async Task<ActionResult<UserDetail>> GetUser(int id)
         {
             var productItems = _unitOfWork.GetRepositoryInstance<UserDetail>().GetFirstorDefault(id);
             if (productItems == null)
@@ -163,6 +156,7 @@ namespace WebApi.Controllers
             return _context.User.Any(e => e.UserId == id);
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public IActionResult Login(LoginViewModel model)
         {
@@ -187,12 +181,47 @@ namespace WebApi.Controllers
                 return BadRequest("Invalid password");
             }
 
+            var token = GenerateToken(user.Email);
+
             return Ok(new
             {
+                token = token,
                 user.UserId,
                 user.FullName,
                 user.Email
             });
+
+           
+        }
+
+
+
+
+    private string GenerateToken(string username)
+        {
+            var claims = new[]
+            {
+        new Claim(ClaimTypes.Name, username)
+    };
+
+            var key = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])
+            );
+
+            var creds = new SigningCredentials(
+                key,
+                SecurityAlgorithms.HmacSha256
+            );
+
+            var token = new JwtSecurityToken(
+                issuer: Configuration["Jwt:Issuer"],
+                audience: Configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
     }

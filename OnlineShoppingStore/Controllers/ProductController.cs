@@ -49,14 +49,14 @@ namespace OnlineShopping.Controllers
         public ActionResult Create(ProductViewModel tbl, IFormFile file)
         {
             string uniqueFileName = null;
-            if (tbl.image != null)
+            if (tbl.productImage != null)
             {
-                if (imageValidation(tbl.image.FileName) == true)
+                if (imageValidation(tbl.productImage.FileName) == true)
                 {
                     string uploadsFolder = Path.Combine(hostingEnvo.WebRootPath, "productImages");
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + tbl.image.FileName;
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + tbl.productImage.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    tbl.image.CopyTo(new FileStream(filePath, FileMode.Create));
+                    tbl.productImage.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
             }
             tbl.dbModel.ProductImage = uniqueFileName;
@@ -80,14 +80,14 @@ namespace OnlineShopping.Controllers
         public ActionResult Edit(ProductViewModel tbl)
         {
             string uniqueFileName = null;
-            if (tbl.image != null)
+            if (tbl.productImage != null)
             {
-                if (imageValidation(tbl.image.FileName) == true)
+                if (imageValidation(tbl.productImage.FileName) == true)
                 {
                     string uploadsFolder = Path.Combine(hostingEnvo.WebRootPath, "productImages");
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + tbl.image.FileName;
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + tbl.productImage.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    tbl.image.CopyTo(new FileStream(filePath, FileMode.Create));
+                    tbl.productImage.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
             }
             tbl.dbModel.ProductImage = uniqueFileName;
