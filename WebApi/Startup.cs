@@ -1,22 +1,15 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.OpenApi.Models;
 
 namespace WebApi
 {
@@ -64,7 +57,10 @@ namespace WebApi
                 options.AddPolicy("AllowReact",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:5173")
+                        builder.WithOrigins(
+                "http://localhost:5173",
+                "https://onlineshop-frontend-one.vercel.app"
+            )
                                .AllowAnyHeader()
                                .AllowAnyMethod();
                     });
@@ -75,7 +71,10 @@ namespace WebApi
                 options.AddPolicy("AllowReact",
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:5173")
+                        builder.WithOrigins(
+                "http://localhost:5173",
+                "https://onlineshop-frontend-one.vercel.app"
+            )
                                .AllowAnyHeader()
                                .AllowAnyMethod();
                     });
@@ -138,7 +137,7 @@ namespace WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("AllowReact");
+            
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -156,7 +155,7 @@ namespace WebApi
 
 
             app.UseRouting();
-
+            app.UseCors("AllowReact");  
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
